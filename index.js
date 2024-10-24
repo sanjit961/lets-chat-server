@@ -7,7 +7,7 @@ const router = require("./routes/index");
 const {app, server} = require("./socket/index")
 
 // Allow requests from specific origin (replace with your client URL)
-const allowedOrigins = ['http://localhost:5173', process.env.FRONTEND_URL];
+const allowedOrigins = [process.env.LOCAL_HOST, process.env.FRONTEND_URL];
 
 app.use(cors({
   origin: allowedOrigins,

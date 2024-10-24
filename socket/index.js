@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { Server } = require("socket.io");
 const http = require("http");
+require("dotenv").config();
 const getUserDetailsFromToken = require("../helpers/getUserDetailsFromToken");
 const UserModel = require("../models/UserModel");
 const {
@@ -12,10 +13,14 @@ const { getConversation } = require("../helpers/getConversation");
 
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = [process.env.LOCAL_HOST, process.env.FRONTEND_URL];
+console.log(allowedOrigins)
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ["Authorization"],
+    credentials: true
   },
 });
 
