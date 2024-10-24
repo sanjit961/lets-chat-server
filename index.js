@@ -5,15 +5,15 @@ require("dotenv").config();
 const connectDb = require("./config/connectDb");
 const router = require("./routes/index");
 const {app, server} = require("./socket/index")
-// const app = express();
 
+// Allow requests from specific origin (replace with your client URL)
+const allowedOrigins = ['http://localhost:5173', process.env.FRONTEND_URL];
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the methods you want to allow
+  credentials: true, // Enable cookies to be sent in CORS requests if necessary
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
